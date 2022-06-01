@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'faculty',
     loadChildren: () => import('./pages/faculty/faculty.module').then((module) => module.FacultyModule),
   },
+  // {
+  //   path: '**',
+  //   redirectTo: 'dashboard'
+  // },
 ];
 
 @NgModule({

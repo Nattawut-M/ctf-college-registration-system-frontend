@@ -10,7 +10,7 @@ export class DashboardComponent implements OnInit {
   options: any;
 
   constructor() {}
-
+  
   ngOnInit(): void {
     this.loadData();
   }

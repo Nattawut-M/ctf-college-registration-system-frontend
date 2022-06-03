@@ -1,0 +1,72 @@
+<div class="p-2 md:p-4">
+  <p class="text-lg md:text-4xl">เพิ่มนักเรียนใหม่ (Add Student)</p>
+  <form [formGroup]="studentForm">
+    <div class="grid">
+      <div *ngFor="let input of studentInputFieldList" [class]="input.class + ' '">
+        <label [for]="input.id" class="text-sm md:text-md">{{ input.label | uppercase }}</label>
+        <input
+          pInputText
+          class="w-full my-1"
+          [type]="input?.type || 'text'"
+          [id]="input.id"
+          [placeholder]="input.placeholder"
+          [formControlName]="input.name"
+          required
+        />
+        <small
+          *ngIf="studentForm.controls[input.name].invalid && studentForm.controls[input.name].touched"
+          class="block p-error px-2"
+        >
+          {{ studentForm.controls[input.name].getError("required") && "* กรุณากรอกข้อมูลในช่องนี้" }}
+        </small>
+        <small class="block text-600 px-2">
+          {{ input.helpText }}
+        </small>
+      </div>
+
+      <div class="col-12 md:col-6 lg:col-6">
+        <label class="text-sm md:text-md" for="facultyId">{{ "คณะ (Faculty)" | uppercase }}</label>
+        <p-dropdown
+          styleClass="w-full my-1"
+          [tabindex]="1001"
+          placeholder="เลือกคณะ"
+          [options]="faculties"
+          formControlName="facultyId"
+          optionLabel="name"
+          (onChange)="filterDepartmentByFaculty()"
+          [virtualScroll]="true"
+        ></p-dropdown>
+      </div>
+      <div class="col-12 md:col-6 lg:col-6">
+        <label class="text-sm md:text-md" for="departmentId">{{ "สาขาวิชา (Department)" | uppercase }}</label>
+        <p-dropdown
+          styleClass="w-full my-1"
+          [tabindex]="1001"
+          placeholder="เลือกสาขาวิชา"
+          [options]="departmentFiltered"
+          formControlName="departmentId"
+          optionLabel="name"
+        ></p-dropdown>
+      </div>
+      <button
+        pButton
+        pRipple
+        type="button"
+        [label]="studentForm.invalid ? 'กรุณากรอกข้อมูลให้ครบถ้วน' : 'เพิ่มนักเรียนใหม่ (Add Student)'"
+        [class]="'p-button-info' + ' col-12 w-full my-2'"
+        (click)="onSubmit()"
+        [disabled]="studentForm.invalid"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="ล้างข้อมูล (Reset)"
+        class="p-button-secondary p-button-text col-12 w-full my-2"
+        (click)="onReset()"
+      ></button>
+    </div>
+  </form>
+</div>
+
+<p-toast position="bottom-right"></p-toast>

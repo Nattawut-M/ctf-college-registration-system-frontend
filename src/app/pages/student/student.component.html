@@ -1,1 +1,11 @@
-<p>student works!</p>
+<button
+  pButton
+  class="p-button-raised bg-blue-400 w-full px-3"
+  icon="pi pi-user-plus"
+  iconPos="right"
+  [routerLink]="['add']"
+>
+  {{ "เพิ่มนักเรียนใหม่ (Add Student)" }}
+</button>
+
+<app-student-table></app-student-table>
